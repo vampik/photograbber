@@ -624,10 +624,7 @@ class ProcessThread(threading.Thread):
             names = [album['name'] for album in data]
             duplicate_names = [name for name, count in collections.Counter(names).items() if count > 1]
             for album in data:
-                if album['name'] in duplicate_names:
-                    album['folder_name'] = '%s - %s' % (album['name'], album['from']['name'])
-                else:
-                    album['folder_name'] = album['name']
+                album['folder_name'] = '%s - %s - %s' % (album['from']['name'], album['id'], album['name'])
 
             #self.total = 0
             for album in data:
@@ -636,8 +633,7 @@ class ProcessThread(threading.Thread):
             self.msg = 'Downloading %d photos...' % self.total
 
             for album in data:
-                path = os.path.join(savedir,unicode(target_info['name']))
-                self.pool.save_album(album, path)
+                self.pool.save_album(album, savedir)
 
             log.info('Waiting for childeren to finish.')
             
