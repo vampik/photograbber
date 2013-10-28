@@ -23,6 +23,7 @@ import requests
 import Queue
 import os
 import time
+import calendar
 import re
 import shutil
 import json
@@ -491,7 +492,7 @@ class DownloaderThread(threading.Thread):
 
                 # correct file time
                 created_time = time.strptime(photo['created_time'], '%Y-%m-%dT%H:%M:%S+0000')
-                time_int = int(time.mktime(created_time))
+                time_int = int(calendar.timegm(created_time))
                 os.utime(save_path, (time_int,) * 2)
             except Exception as e:
                 log.exception(e)
