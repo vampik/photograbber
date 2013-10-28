@@ -521,9 +521,9 @@ class DownloadPool(object):
         #
         # '\*|"|:|<|>|\?|\\|/|,|'
         # add . for ... case, windows does not like ellipsis
-        REPLACE_RE = re.compile(r'\*|"|:|<|>|\?|\\|/|,|\.')
+        REPLACE_RE = re.compile(r'\*|"|:|<|>|\?|\\|/')
         folder = unicode(album['folder_name'])
-        folder = REPLACE_RE.sub('_', folder)
+        folder = REPLACE_RE.sub('', folder)
         path = os.path.join(path, folder)
         if not os.path.isdir(path):
             os.makedirs(path) # recursive makedir
